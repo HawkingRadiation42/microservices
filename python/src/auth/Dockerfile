@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bullseye
+FROM python:3.10-slim-bullseye
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends --no-install-suggests \
@@ -12,4 +12,4 @@ COPY . /app
 
 EXPOSE 8000
 
-CMD ["python3", "server.py"]
+CMD ["uvicorn", "server:app", "--reload"]
