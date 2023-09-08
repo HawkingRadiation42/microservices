@@ -25,8 +25,17 @@ async def get_db():
     db = client[db_name]
     return db
 
+def get_password_hash(password):
+    return pwd_context.hash(password)
+
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
+
+@app.on_event("startup")
+async def startup_event():
+    db = await get_db()
+    hashed_password = get_password_hash("root")
+    await db.user.update_one({"email": "root@email.com"}, {"$set": {"password": hashed_password}}, upsert=True)
 
 @app.post("/login")
 async def login(user: User):
