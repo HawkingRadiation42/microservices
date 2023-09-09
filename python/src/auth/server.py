@@ -81,7 +81,7 @@ def create_jwt(username, secret, authz):
 
 @app.get("/")
 async def read_root():
-    return {"Hello": "Welcome to microservices auth home page!"}
+    return {"Hello": "Welcome to Auth-Microservice home page!"}
 
 if __name__ == "__main__":
     import uvicorn
